@@ -12,7 +12,7 @@ const useHandleSaveResponse = () => {
     async (message: Message) => {
       try {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
-        const response = await requestSaveResponse(message, user.id);
+        const response = await requestSaveResponse(message, user._id);
 
         if (response.success) {
           const messageTimestamp = new Date(message.createdAt!).toISOString();
