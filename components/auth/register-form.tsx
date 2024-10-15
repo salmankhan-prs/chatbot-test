@@ -5,9 +5,10 @@ import * as Yup from "yup";
 import { InputField } from "../common/input";
 import { Button } from "../common/button";
 import { useRouter } from "next/router";
+import { toast } from "sonner";
 
 const validationSchema = Yup.object({
-  fullName: Yup.string().required("First name is required"),
+  fullName: Yup.string().required("Full name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters")
@@ -42,6 +43,7 @@ const RegisterForm: React.FC = () => {
       router.push("/login");
     } catch (error) {
       console.error(error);
+      toast.error((error as Error).message);
     }
   };
 

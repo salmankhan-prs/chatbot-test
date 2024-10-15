@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
+    <nav className="bg-gray-800 px-4 py-2  text-white flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <Link href="/">Home</Link>
         {/* {isSuperAdmin && (
@@ -25,7 +25,8 @@ const Navbar = () => {
       <div className="flex items-center space-x-4">
         <Button
           onClick={logout}
-          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+          className="bg-red-500 hover:bg-red-600 text-white"
+          size="sm"
         >
           Logout
         </Button>

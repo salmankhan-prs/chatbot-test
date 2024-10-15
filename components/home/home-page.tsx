@@ -19,7 +19,7 @@ const HomePage = () => {
   }, [handleFetchSavedResponses]);
 
   return (
-    <div className={cn("min-h-screen transition-colors")}>
+    <div className="flex-1 overflow-y-auto transition-colors">
       <div className="container flex flex-col items-center mx-auto p-4">
         <div className="w-full flex justify-between items-center mb-4">
           <h1 className="text-3xl font-bold">Chatbot Interface</h1>
@@ -56,7 +56,7 @@ const HomePage = () => {
                 {message.role === "assistant" && (
                   <Button
                     onClick={() => handleSaveResponse(message)}
-                    className="mt-2 text-sm"
+                    className="mt-2 text-sm bg-blue-500 dark:text-white"
                   >
                     Save Response
                   </Button>
