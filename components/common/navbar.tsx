@@ -1,33 +1,34 @@
-import Link from 'next/link';
-import { Button } from '../common/button'; // Assuming you have a button component
-import useAuth from '@/hooks/useAuth';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Button } from "../common/button";
 
 const Navbar = () => {
-  const { userId, isSuperAdmin, loading, logout } = useAuth();
+  const router = useRouter();
 
-  if (loading) {
-    return <div>Loading...</div>; // Show a loading state while checking authentication
-  }
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    router.push("/login");
+  };
 
   return (
     <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
       <div className="flex items-center space-x-4">
-        <Link href="/">
-         Home
-        </Link>
-        {isSuperAdmin && (
+        <Link href="/">Home</Link>
+        {/* {isSuperAdmin && (
           <Link href="/admin">
           Dashbaord
           </Link>
-        )}
+        )} */}
       </div>
 
       <div className="flex items-center space-x-4">
-        {userId && (
-          <Button onClick={logout} className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded">
-            Logout
-          </Button>
-        )}
+        <Button
+          onClick={logout}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+        >
+          Logout
+        </Button>
       </div>
     </nav>
   );

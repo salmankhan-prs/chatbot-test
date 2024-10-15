@@ -4,15 +4,16 @@ import { Message } from "ai";
 import useFetchSavedResponses from "./useFetchSavedResponses";
 import { requestSaveResponse } from "@/api-helpers/saved-responses";
 import { saveResponse } from "@/store";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 const useHandleSaveResponse = () => {
   const dispatch = useDispatch();
   const { handleFetchSavedResponses } = useFetchSavedResponses();
 
   const handleSaveResponse = useCallback(
-    async (message: Message, userId = "") => {
+    async (message: Message) => {
       try {
-        const response = await requestSaveResponse(message, userId);
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const response = await requestSaveResponse(message, user.id);
 
         if (response.success) {
           dispatch(saveResponse(message));

@@ -12,6 +12,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        'card': '0px 15px 20px rgba(0, 0, 0, 0.1)' 
+      }
     },
   },
   plugins: [],

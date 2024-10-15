@@ -1,42 +1,40 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import useAuth from '@/hooks/useAuth'
+import { useState, useEffect } from "react";
 
 interface Response {
-  _id: string
-  userId: string
+  _id: string;
+  userId: string;
   message: {
-    content: string
-    role: string
-  }
-  timestamp: string
+    content: string;
+    role: string;
+  };
+  timestamp: string;
 }
 
 export default function AdminPanel() {
-  const [responses, setResponses] = useState<Response[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState('')
+  const [responses, setResponses] = useState<Response[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
   useEffect(() => {
-   
     const fetchResponses = async () => {
       try {
-        const res = await fetch('/api/get-all-responses')
-        if (!res.ok) throw new Error('Failed to fetch responses')
-        const data = await res.json()
-        setResponses(data.responses)
+        const res = await fetch("/api/get-all-responses");
+        if (!res.ok) throw new Error("Failed to fetch responses");
+        const data = await res.json();
+        setResponses(data.responses);
       } catch (err) {
-        setError('Failed to load responses')
-        console.error(err)
+        setError("Failed to load responses");
+        console.error(err);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchResponses()
-  }, [])
+    fetchResponses();
+  }, []);
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error: {error}</div>
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className="container mx-auto p-4">
@@ -54,11 +52,13 @@ export default function AdminPanel() {
             <tr key={response._id}>
               <td className="py-2 px-4 border-b">{response.userId}</td>
               <td className="py-2 px-4 border-b">{response.message.content}</td>
-              <td className="py-2 px-4 border-b">{new Date(response.timestamp).toLocaleString()}</td>
+              <td className="py-2 px-4 border-b">
+                {new Date(response.timestamp).toLocaleString()}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
