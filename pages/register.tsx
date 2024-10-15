@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -54,6 +55,13 @@ const Register = () => {
         />
         <button type="submit">Register</button>
       </form>
+
+      <p>
+        already have an account{' '}
+        <Link href="/login">
+         Login
+        </Link>
+      </p>
     </div>
   );
 };

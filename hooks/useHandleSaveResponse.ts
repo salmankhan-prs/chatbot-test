@@ -4,7 +4,7 @@ import { Message } from "ai";
 import useFetchSavedResponses from "./useFetchSavedResponses";
 import { requestSaveResponse } from "@/api-helpers/saved-responses";
 import { saveResponse } from "@/store";
-
+import { toast } from 'react-toastify'
 const useHandleSaveResponse = () => {
   const dispatch = useDispatch();
   const { handleFetchSavedResponses } = useFetchSavedResponses();
@@ -14,16 +14,16 @@ const useHandleSaveResponse = () => {
       try {
         const response = await requestSaveResponse(message, userId);
 
-        if (response.ok) {
+        if (response.success) {
           dispatch(saveResponse(message));
           handleFetchSavedResponses();
-          alert("Response saved successfully!");
+          toast("Response saved successfully!");
         } else {
           throw new Error("Failed to save response");
         }
       } catch (error) {
         console.error("Error saving response:", error);
-        alert("Failed to save response. Please try again.");
+        toast("Failed to save response. Please try again.");
       }
     },
     [dispatch, handleFetchSavedResponses]

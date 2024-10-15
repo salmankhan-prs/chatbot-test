@@ -8,15 +8,15 @@ import { ThemeToggle } from "@/components/theme-toggle";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
-      <ThemeProvider
+      {/* <ThemeProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
         disableTransitionOnChange
       >
-        <ThemeToggle />
+        <ThemeToggle /> */}
         <Component {...pageProps} />
-      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </Provider>
   );
 }

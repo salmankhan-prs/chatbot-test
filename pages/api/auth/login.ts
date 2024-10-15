@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, { expiresIn: '1d' })
 
-            res.status(200).json({ success: true, token })
+            res.status(200).json({ success: true, token, user })
         } catch (error) {
             console.error(error)
             res.status(500).json({ success: false, error: 'Failed to login' })

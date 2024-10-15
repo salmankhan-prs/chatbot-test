@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import useAuth from '@/hooks/useAuth'
 
 interface Response {
   _id: string
@@ -15,9 +16,8 @@ export default function AdminPanel() {
   const [responses, setResponses] = useState<Response[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
-  const router = useRouter()
-
   useEffect(() => {
+   
     const fetchResponses = async () => {
       try {
         const res = await fetch('/api/get-all-responses')

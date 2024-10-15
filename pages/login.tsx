@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link'; // Import the Link component
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -27,9 +28,10 @@ const Login = () => {
 
       // Store token in localStorage
       localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
 
       // Redirect to protected page (e.g., /admin)
-      router.push('/admin');
+      router.push('/');
     } catch (err) {
       console.error(err);
       setError('Login failed');
@@ -57,6 +59,12 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don't have an account?{' '}
+        <Link href="/register">
+         Register
+        </Link>
+      </p>
     </div>
   );
 };
