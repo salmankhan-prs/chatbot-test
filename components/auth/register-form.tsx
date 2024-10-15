@@ -35,14 +35,14 @@ const RegisterForm: React.FC = () => {
       });
 
       const data = await res.json();
-      if (!data.success) {
-        return;
-      }
 
-      // Redirect to login page after successful registration
-      router.push("/login");
+      if (!data.success) {
+        throw new Error(data.error);
+      } else {
+        // Redirect to login page after successful registration
+        router.push("/login");
+      }
     } catch (error) {
-      console.error(error);
       toast.error((error as Error).message);
     }
   };

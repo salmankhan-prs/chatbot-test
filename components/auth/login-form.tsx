@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/router";
+import { toast } from "sonner";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { InputField } from "../common/input";
 import { Button } from "../common/button";
-import { useRouter } from "next/router";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -28,20 +29,18 @@ const LoginForm: React.FC = () => {
       });
 
       const data = await res.json();
+
       if (!data.success) {
-        // setError(data.error);
-        return;
+        throw new Error(data.error);
+      } else {
+        // Store token in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        // Redirect to protected page (e.g., /admin)
+        router.push("/home");
       }
-
-      // Store token in localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      // Redirect to protected page (e.g., /admin)
-      router.push("/home");
-    } catch (err) {
-      console.error(err);
-      //   setError("Login failed");
+    } catch (error) {
+      toast.error((error as Error).message);
     }
   };
 
