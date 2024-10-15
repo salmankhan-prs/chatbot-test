@@ -1,21 +1,22 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { initialStoreState } from "./state";
+import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialStoreState, ISavedResponse, IStoreState } from "./state";
 
 const chatSlice = createSlice({
   name: "chat",
   initialState: initialStoreState,
   reducers: {
-    addMessage: (state, action) => {
-      state.messages.push(action.payload);
-    },
-    saveResponse: (state, action) => {
-      console.log(action.payload, "actions.payload"); //FIXME: iisue in A non-serializable value was detected in an action, in the path:
+    addSavedResponse: (state, action: PayloadAction<ISavedResponse>) => {
       state.savedResponses.push(action.payload);
+    },
+    setSavedResponses: (state, action: PayloadAction<ISavedResponse[]>) => {
+      state.savedResponses = action.payload;
     },
   },
 });
 
-export const { addMessage, saveResponse } = chatSlice.actions;
+export const { addSavedResponse, setSavedResponses } = chatSlice.actions;
+
+export const sGetSavedResponses = (state: Record<"chat", IStoreState>) => state.chat.savedResponses;
 
 export const store = configureStore({
   reducer: {

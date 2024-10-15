@@ -1,26 +1,21 @@
-import { useCallback, useState } from "react";
-import { Message } from "ai";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { requestFetchSavedResponses } from "@/api-helpers/saved-responses";
-
-interface ISavedResponse {
-  _id: string;
-  message: Message;
-  timestamp: string;
-}
+import { setSavedResponses } from "@/store";
 
 const useFetchSavedResponses = () => {
-  const [savedResponses, setSavedResponses] = useState<ISavedResponse[]>([]);
+  const dispatch = useDispatch();
 
   const handleFetchSavedResponses = useCallback(async () => {
     try {
       const data = await requestFetchSavedResponses();
-      setSavedResponses(data.responses);
+      dispatch(setSavedResponses(data.responses));
     } catch (error) {
       console.error("Failed to fetch saved responses:", error);
     }
-  }, []);
+  }, [dispatch]);
 
-  return { handleFetchSavedResponses, savedResponses };
+  return { handleFetchSavedResponses };
 };
 
 export default useFetchSavedResponses;

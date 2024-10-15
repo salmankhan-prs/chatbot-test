@@ -2,13 +2,11 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Message } from "ai";
 import { toast } from "sonner";
-import useFetchSavedResponses from "./useFetchSavedResponses";
+import { addSavedResponse } from "@/store";
 import { requestSaveResponse } from "@/api-helpers/saved-responses";
-import { saveResponse } from "@/store";
 
 const useHandleSaveResponse = () => {
   const dispatch = useDispatch();
-  const { handleFetchSavedResponses } = useFetchSavedResponses();
 
   const handleSaveResponse = useCallback(
     async (message: Message) => {
@@ -17,8 +15,19 @@ const useHandleSaveResponse = () => {
         const response = await requestSaveResponse(message, user.id);
 
         if (response.success) {
-          dispatch(saveResponse(message));
-          handleFetchSavedResponses();
+          const messageTimestamp = new Date(message.createdAt!).toISOString();
+          dispatch(
+            addSavedResponse({
+              _id: response.id,
+              message: {
+                content: message.content,
+                createdAt: messageTimestamp,
+                id: message.id,
+                role: "assistant",
+              },
+              timestamp: messageTimestamp,
+            })
+          );
           toast.success("Response saved successfully!");
         } else {
           throw new Error("Failed to save response");
@@ -28,7 +37,7 @@ const useHandleSaveResponse = () => {
         toast.error("Failed to save response. Please try again.");
       }
     },
-    [dispatch, handleFetchSavedResponses]
+    [dispatch]
   );
 
   return handleSaveResponse;

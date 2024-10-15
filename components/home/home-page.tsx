@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useChat } from "ai/react";
 import { Button } from "../common/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../common/tabs";
@@ -6,12 +7,13 @@ import { Textarea } from "../common/textarea";
 import useFetchSavedResponses from "@/hooks/useFetchSavedResponses";
 import useHandleSaveResponse from "@/hooks/useHandleSaveResponse";
 import withAuth from "@/hoc/withAuth";
+import { sGetSavedResponses } from "@/store";
 import { cn } from "@/utils/style";
 
 const HomePage = () => {
+  const savedResponses = useSelector(sGetSavedResponses);
   const { messages, input, handleInputChange, handleSubmit } = useChat();
-  const { handleFetchSavedResponses, savedResponses } =
-    useFetchSavedResponses();
+  const { handleFetchSavedResponses } = useFetchSavedResponses();
   const handleSaveResponse = useHandleSaveResponse();
 
   useEffect(() => {

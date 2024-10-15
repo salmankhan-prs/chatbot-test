@@ -1,17 +1,19 @@
-import { Message } from "ai";
-
 export interface ISavedResponse {
   _id: string;
-  message: Message;
+  message: {
+    createdAt: string;
+    content: string;
+    id: string;
+    role: string;
+  };
   timestamp: string;
+  userId?: string;
 }
 
-interface IStoreState {
-  messages: Message[];
+export interface IStoreState {
   savedResponses: ISavedResponse[];
 }
 
 export const initialStoreState: IStoreState = {
-  messages: [],
   savedResponses: [],
 };

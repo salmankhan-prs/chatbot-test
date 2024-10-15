@@ -8,7 +8,6 @@ export const requestFetchSavedResponses = async () => {
     },
   });
   const data = await response.json();
-  console.log(data, "data...");
   return data;
 };
 
@@ -24,6 +23,5 @@ export const requestSaveResponse = async (message: Message, userId = "") => {
   });
 
   const data = await response.json();
-  console.log(data, "data...");
   return data;
 };
