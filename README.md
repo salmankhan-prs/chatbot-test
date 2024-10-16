@@ -77,4 +77,4 @@ Example user document for a super admin:
 
 ## Demo
 
-For a comprehensive demonstration of the AI Chatbot, please visit [our demo site](https://your-demo-url.com) and create an account to experience the full functionality.
+For a comprehensive demonstration of the AI Chatbot, please visit [our demo site](https://chatbot-test-pearl.vercel.app) and create an account to experience the full functionality.
