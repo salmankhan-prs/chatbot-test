@@ -1,7 +1,6 @@
 # AI Chatbot
 
-An interactive chatbot that allows users to ask questions and save responses for future reference. This project provides a user-friendly interface for engaging with an AI-powered chatbot, with features for account management and response storage.
-
+An interactive chatbot that allows users to ask questions and save responses for future reference. This project provides a user-friendly interface for engaging with an AI-powered chatbot
 ## Features
 
 - Ask questions and receive AI-generated responses
@@ -23,7 +22,7 @@ JWT_SECRET=your_jwt_secret
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/ai-chatbot.git
+   git clone https://github.com/salmankhan-prs/chatbot-test
    cd ai-chatbot
    ```
 
