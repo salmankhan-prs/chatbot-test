@@ -15,11 +15,11 @@ const Navbar = () => {
     <nav className="bg-gray-800 px-4 py-2  text-white flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <Link href="/">Home</Link>
-        {/* {isSuperAdmin && (
+        {/* {isSuperAdmin && ( */} //FIXME:please add  /admin page if the user is admin
           <Link href="/admin">
           Dashbaord
           </Link>
-        )} */}
+        )}
       </div>
 
       <div className="flex items-center space-x-4">

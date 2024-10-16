@@ -36,7 +36,7 @@ const LoginForm: React.FC = () => {
         // Store token in localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        // Redirect to protected page (e.g., /admin)
+      
         router.push("/home");
       }
     } catch (error) {

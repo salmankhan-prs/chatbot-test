@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
 import { Configuration, OpenAIApi } from 'openai-edge'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
+import { Message, OpenAIStream, StreamingTextResponse } from 'ai'
 
 // Create an OpenAI API client (that's edge friendly!)
 const config = new Configuration({
@@ -19,7 +19,7 @@ export default async function handler(req: NextRequest) {
     const response = await openai.createChatCompletion({
         model: 'gpt-3.5-turbo',
         stream: true,
-        messages: messages.map((message: any) => ({
+        messages: messages.map((message: Message) => ({
             role: message.role,
             content: message.content
         })),

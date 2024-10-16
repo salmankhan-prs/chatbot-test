@@ -12,6 +12,8 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
         // Redirect to public route if not authenticated
         router.replace("/login");
       }
+      //FIXME: here we need to check if the user is admin
+      //then only allow him to access the admin page
     }, [router]);
 
     return <WrappedComponent {...props} />;
