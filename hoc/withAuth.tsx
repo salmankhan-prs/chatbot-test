@@ -11,9 +11,10 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
       if (!(token || user.id)) {
         // Redirect to public route if not authenticated
         router.replace("/login");
+      } else if (router.pathname === "/admin" && !user.superAdmin) {
+        // Redirect to home page if not superAdmin
+        router.replace("/home");
       }
-      //FIXME: here we need to check if the user is admin
-      //then only allow him to access the admin page
     }, [router]);
 
     return <WrappedComponent {...props} />;
