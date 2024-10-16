@@ -1,22 +1,30 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button } from "../common/button";
+import { useCallback, useEffect, useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
+  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
-  const logout = () => {
+  useEffect(() => {
+    if (router.isReady) {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      setIsSuperAdmin(!!user?.superAdmin);
+    }
+  }, [router]);
+
+  const logout = useCallback(() => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     router.push("/login");
-  };
+  }, [router]);
 
   return (
     <nav className="bg-gray-800 px-4 py-2  text-white flex items-center justify-between">
       <div className="flex items-center space-x-4">
-        <Link href="/">Home</Link>
- {/* //FIXME:please add  /admin page if the user  */}
-
+        <Link href="/home">Home</Link>
+        {isSuperAdmin && <Link href="/admin">Super Admin</Link>}
       </div>
 
       <div className="flex items-center space-x-4">
