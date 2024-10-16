@@ -1,5 +1,10 @@
 import { MongoClient } from 'mongodb'
 
+declare global {
+    /* eslint no-var: 0 */
+    var _mongoClientPromise: Promise<MongoClient> | undefined
+}
+
 if (!process.env.MONGODB_URI) {
     throw new Error('Invalid/Missing environment variable: "MONGODB_URI"')
 }
@@ -7,7 +12,7 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI
 const options = {}
 
-let client
+let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
 if (process.env.NODE_ENV === 'development') {
